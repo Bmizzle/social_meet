@@ -1,0 +1,68 @@
+	<div class="span14">
+	<div class="row">
+
+	<!-- Content Span4 -->
+	<div class="span3">
+	
+	<ul class="media-grid">
+        <li>
+          <a href="#">
+            <img class="thumbnail" src="http://placehold.it/90x90" alt="">
+          </a>
+		 </li>
+		 </ul>
+		 <%= pluralize(current_user.smeets.length, "Smeet") %>
+		 <br/>
+		 <%= current_user.friends.count %> following
+		  <br/>
+		 <%= pluralize(current_user.friends_of.count, "follower") %>
+		  <br/>
+		 <%= current_user.friends.count %> attending
+		  <br/>
+		 <%= current_user.friends.count %> attended
+	</div><!-- Content Span4 -->
+		
+	
+	<!-- Content Span10 -->
+	
+   <div class="span10">
+
+   <h2><%= current_user.username %><small> 25/F/ San Francisco, CA </small></h2>
+   <ul class="tabs">
+   <li class="active"><a href="dashboard.html">Home</a></li>
+   <li><a href="smeets.html">Smeets</a></li>
+   <li><a href="about.html">Profile</a></li>
+   <li><a href="photo.html">Photo</a></li>
+   </ul>
+
+   <h5>Social Meet</h5>
+
+   	<%= form_for Smeet.new do |f| %>
+	<%= f.text_field :title, :class => "span5", :placeholder => "Title" %>
+	<%= f.text_field :location, :placeholder => "Location" %>
+	<%= f.text_area  :descrip, :class=> "xxlarge", :rows=>"2", :placeholder => "Description" %>
+	<%= f.submit "Post", :class=> "btn small" %>
+	<% end %>
+
+	<table class="zebra-striped">
+	<% @smeets.each do |smeet| %>
+	
+	<tr>
+	<td>
+	<%= image_tag('small_avatar.gif') %>
+	<%= link_to smeet.user.username %>
+	</td>
+	<td>
+
+	<h5><%= h smeet.title %></h5>
+	<%= h smeet.descrip %>
+	<%= h smeet.location %>
+	<%= h distance_of_time_in_words_to_now(smeet.created_at) %> ago
+	</td>
+	</tr>
+	<% end %>
+	</table>
+
+	</div> <!-- End Content Span10 -->
+</div> <!-- End Row -->
+</div> <!-- End Content Span14 -->
